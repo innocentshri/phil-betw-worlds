@@ -1,298 +1,384 @@
 <!doctype html>
-
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Philosophy Between Worlds</title>  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <title>Philosophy Between Worlds</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Lora:wght@300;400;600&display=swap" rel="stylesheet">  <style>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Lora:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    /* [unchanged: keep all original CSS here] */
     :root{
       --paper:#f6efe4; --paper-2:#efe5cf; --ink:#2b2b23; --muted:#6b655b; --accent:#6b4f2b; --glass:rgba(255,255,255,0.6);
       --max-width:1200px; --radius:14px; --transition:300ms cubic-bezier(.2,.9,.3,1);
     }
-
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0; font-family:'Lora', Georgia, serif; background:linear-gradient(180deg,var(--paper),var(--paper-2)); color:var(--ink);
       -webkit-font-smoothing:antialiased; padding:22px; display:flex; justify-content:center; align-items:flex-start;
     }
-
     .site{width:100%; max-width:var(--max-width); background:linear-gradient(180deg, rgba(255,255,255,0.66), rgba(255,255,255,0.9)); border-radius:var(--radius); padding:22px 28px; box-shadow:0 18px 60px rgba(30,20,10,0.06); overflow:hidden}
-
-    /* Top row */
     header{display:flex; gap:18px; align-items:flex-start}
     .brand{font-family:'Cormorant Garamond', serif; color:var(--accent); font-size:30px}
     .tag{color:var(--muted); margin-top:6px}
-
-    /* Search & controls */
     .controls{margin-left:auto; display:flex; gap:10px; align-items:center}
     .search{position:relative}
     .search input{padding:10px 12px; border-radius:10px; border:1px solid rgba(107,79,43,0.06); background:var(--glass); width:260px}
     .btn{padding:8px 12px; border-radius:10px; background:var(--glass); border:1px solid rgba(107,79,43,0.06); cursor:pointer}
-
-    /* Progress */
     .progress-wrap{position:sticky; top:14px; z-index:40; margin-top:8px;}
     .progress{height:6px; background:rgba(107,79,43,0.06); border-radius:8px; overflow:hidden}
     .progress > i{display:block; height:100%; width:0%; background:linear-gradient(90deg,var(--accent), #8a5a2e); transition:width 160ms linear}
-
-    /* Layout */
     .layout{display:grid; grid-template-columns: 1fr 380px; gap:28px; margin-top:18px}
     .maincol{padding:18px; background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.75)); border-radius:12px}
     aside{position:sticky; top:88px; align-self:start}
     .aside-card{background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.86)); padding:14px; border-radius:10px; margin-bottom:14px}
-
-    /* Sections */
     section{margin-bottom:28px; opacity:0; transform:translateY(6px); animation:fadeIn 420ms ease forwards}
     section:nth-of-type(1){animation-delay:80ms} section:nth-of-type(2){animation-delay:200ms} section:nth-of-type(3){animation-delay:320ms} section:nth-of-type(4){animation-delay:440ms} section:nth-of-type(5){animation-delay:560ms}
     @keyframes fadeIn{to{opacity:1; transform:none}}
-
     h2{font-family:'Cormorant Garamond', serif; margin:6px 0 12px 0}
     .lede{color:var(--muted)}
     article{margin-bottom:18px}
-
-    /* The Great Minds — expandable list */
     .mind{padding:12px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.5)); border-left:4px solid rgba(107,79,43,0.06); margin-bottom:8px}
     .mind .meta{color:var(--muted); font-size:13px}
     .mind .more{max-height:0; overflow:hidden; transition:max-height 260ms ease}
     .mind.open .more{max-height:420px}
-
-    /* Hover quotes */
     .hover-quote{position:relative}
     .hover-quote .tip{position:absolute; left:calc(100% + 12px); top:6px; min-width:240px; max-width:320px; background:var(--glass); padding:12px; border-radius:10px; box-shadow:0 12px 34px rgba(30,20,10,0.08); opacity:0; transform:translateY(6px); transition:opacity 180ms ease, transform 180ms ease; pointer-events:none}
     .hover-quote:hover .tip{opacity:1; transform:none; pointer-events:auto}
-
-    /* Timeline */
     .timeline{border-left:2px solid rgba(107,79,43,0.07); padding-left:14px}
     .event{margin:10px 0}
     .event .title{font-weight:600}
-
-    /* Reflections */
     .reflections textarea{width:100%; min-height:140px; border-radius:10px; padding:12px; border:1px solid rgba(107,79,43,0.06)}
-
-    /* Search results */
     .results{margin-top:10px}
     .result-item{padding:10px; border-radius:8px; background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.5)); margin-bottom:8px}
-
     footer{margin-top:18px; color:var(--muted); font-size:13px}
-
-    /* Modal & accessibility */
     .modal{position:fixed; left:0; top:0; right:0; bottom:0; display:flex; align-items:center; justify-content:center; background:rgba(10,10,10,0.32); opacity:0; pointer-events:none; transition:opacity 220ms ease}
     .modal.open{opacity:1; pointer-events:auto}
     .modal .panel{background:var(--paper); padding:20px; border-radius:12px; width:92%; max-width:720px}
-
     @media (max-width:980px){ .layout{grid-template-columns:1fr} aside{position:static} .search input{width:180px} }
     @media (prefers-reduced-motion: reduce){ *{animation:none!important; transition:none!important} }
-  </style></head>
+  </style>
+</head>
 <body>
   <div class="site" id="site">
     <header>
       <div>
         <div class="brand">Philosophy Between Worlds</div>
         <div class="tag">A long-form, explorative reading journey — rational, accessible, and meditative.</div>
-      </div><div class="controls">
-    <div class="search" role="search">
-      <input id="searchInput" type="search" placeholder="Search ideas, names, books..." aria-label="Search the library" />
+      </div>
+      <div class="controls">
+        <div class="search" role="search">
+          <input id="searchInput" type="search" placeholder="Search ideas, names, books..." aria-label="Search the library" />
+        </div>
+        <button class="btn" id="clearSearch">Clear</button>
+      </div>
+    </header>
+
+    <div class="progress-wrap"><div class="progress"><i id="prog"></i></div></div>
+
+    <div class="layout">
+      <main class="maincol" id="maincol">
+
+        <section id="foundations">
+          <h2>The Foundations</h2>
+          <p class="lede">Long-form primers that begin with an invitation: what is being asked, why it matters, and how to think about it. Each primer includes an interpretive reading and a set of practice prompts for active study.</p>
+          <article>
+            <h3>What Is Philosophy?</h3>
+            <p>
+              Philosophy is the art of asking the deepest questions and facing the vastest horizons. It is both ancient and ever-new, the patient search for meaning in a world that seems both knowable and mysterious. At its heart, philosophy is not about giving answers, but about showing how and why we ask.<br/><br/>
+              Across centuries, philosophers have pondered questions of existence, truth, ethics, beauty, mind, and cosmos. Western thinkers often seek clarity through structured argument, aspiring to map reason like the stars. Indian thought invites contemplative integration, welcoming paradox and inward discovery.<br/><br/>
+              Philosophy matters—because it shapes living, not just thinking. The worlds we inhabit, the laws we follow, the stories we tell, are all built on choices that are, at root, philosophical. We learn to recognize presuppositions and gently stretch the boundaries of the possible. The dialogue between Western and Indian traditions opens windows: logic and insight, difference and unity, questioning and presence—these are the bridges we walk.
+            </p>
+            <div class="hover-quote">
+              <small class="muted">Tip</small>
+              <div class="tip">"Wherever two traditions meet, philosophy becomes borderless, and the map expands."</div>
+            </div>
+            <div class="muted small" style="margin-top:8px">
+              Practice: describe a deep question in your own words, then write how Western and Indian thinkers might approach it.
+            </div>
+          </article>
+          <article>
+            <h3>On Questions</h3>
+            <p>Philosophy begins with careful questioning — not to produce final answers, but to refine the map. A good question separates conceptual confusions and points to the evidence that would change minds.</p>
+            <div class="hover-quote"> <small class="muted">Tip</small>
+              <div class="tip">"Good philosophical questions are diagnostic: they reveal hidden assumptions."</div>
+            </div>
+            <div class="muted small" style="margin-top:8px">Practice: take a familiar claim and list what it presupposes.</div>
+          </article>
+          <article>
+            <h3>Methods: Reason, Experience, and Insight</h3>
+            <p>
+              To philosophize is to balance methods: analytic reasoning’s demand for clarity, historical-contextual critique’s search for nuance, empirical support’s shaping of evidence, and meditative insight’s gentle opening toward what cannot be easily said.<br/><br/>
+              Western philosophy is often defined by its logic and structure, asking, “Can this be argued?” Indian philosophy prizes the cultivation of insight, challenging us to ask, “Can this be realized?” The interplay is fruitful—reason helps test intuition, intuition deepens reason.
+            </p>
+            <div class="muted small" style="margin-top:8px">Practice prompts: reconstruct an argument in premise→conclusion form; test its counterexamples.</div>
+          </article>
+        </section>
+
+        <section id="minds">
+          <h2>The Great Minds</h2>
+          <p class="lede">Deep profiles: each entry is exploratory — biography, central problems, core arguments, and a sustained critical reading. The collection balances Western (≈70%) and Indian (≈30%) thinkers, organized to encourage cross-cultural conversation.</p>
+
+          <!-- Western philosophers: substantial, concise, reflective entries -->
+          <div class="mind" data-id="socrates">
+            <div class="head"><strong>Socrates</strong> <span class="meta">c.470–399 BCE · Ethics, Elenchus</span> <button class="btn" onclick="toggleMind(this)">Read</button></div>
+            <div class="more">
+              <p>
+                Socrates, the enigmatic Athenian, made philosophy an everyday affair. By persistently questioning accepted beliefs, he revealed the gaps between what people assumed and what they truly understood. His legacy is the method—elenchus—to test ideas through dialogue. Socrates’ commitment to an examined life cost him dearly: charged with corrupting youth, he accepted death rather than abandon his ideals.
+              </p>
+              <p class="muted small">Reflective prompt: Is living an unexamined life possible today? How does relentless questioning shape a society?</p>
+            </div>
+          </div>
+
+          <div class="mind" data-id="plato">
+            <div class="head"><strong>Plato</strong> <span class="meta">c.427–347 BCE · Forms, Justice</span> <button class="btn" onclick="toggleMind(this)">Read</button></div>
+            <div class="more">
+              <p>Plato’s dialogues probe what a just life and a just polis might look like. The analytic move is to separate appearance from structure: are the social roles he sketches descriptive or prescriptive?</p>
+              <p class="muted small">Reflective prompt: how would Plato's republic treat dissent? What modern institutions echo Platonic ideas?</p>
+            </div>
+          </div>
+          
+          <div class="mind" data-id="descartes">
+            <div class="head"><strong>René Descartes</strong> <span class="meta">1596–1650 · Doubt, Cogito</span> <button class="btn" onclick="toggleMind(this)">Read</button></div>
+            <div class="more">
+              <p>
+                Descartes, often seen as the “father of modern philosophy,” began with radical doubt, seeking certainty in a turbulent world. He landed on the famous “I think, therefore I am”—the anchor for all knowledge. His method of skepticism and clear reasoning inspired both science and philosophy, but it also raised lasting problems: how do mind and body relate?
+              </p>
+              <p class="muted small">Reflective prompt: Try doubting everything you know—what remains that is indubitable?</p>
+            </div>
+          </div>
+
+          <div class="mind" data-id="kant">
+            <div class="head"><strong>Immanuel Kant</strong> <span class="meta">1724–1804 · Epistemology & Ethics</span> <button class="btn" onclick="toggleMind(this)">Read</button></div>
+            <div class="more">
+              <p>Kant’s critical project asks: what structures must be in place for experience to be possible? Ethically, his universalizability test offers a distinctive way to evaluate duties.</p>
+              <p class="muted small">Reflective prompt: find a moral rule you hold — can it be universalized without contradiction?</p>
+            </div>
+          </div>
+
+          <div class="mind" data-id="nietzsche">
+            <div class="head"><strong>Friedrich Nietzsche</strong> <span class="meta">1844–1900 · Critique of Values</span> <button class="btn" onclick="toggleMind(this)">Read</button></div>
+            <div class="more">
+              <p>
+                Nietzsche unsettled the foundations: he called into question morality, religion, and the “herd” mentality. His writing is aphoristic, poetic, and fiercely original—proposing that truth and value are created, not discovered. Nietzsche's notion of the “overman” challenges us to reimagine self and society beyond received wisdom.
+              </p>
+              <p class="muted small">Reflective prompt: What does it mean to “become who you are?” Are values something we inherit or create?</p>
+            </div>
+          </div>
+
+          <!-- Indian philosophers/traditions: concise, meaningful, reflective entries -->
+          <div class="mind" data-id="vedanta">
+            <div class="head"><strong>Vedānta</strong> <span class="meta">Non-dualism, Ultimate Reality</span> <button class="btn" onclick="toggleMind(this)">Read</button></div>
+            <div class="more">
+              <p>
+                Vedānta, rooted in the Upanishads, explores the nature of reality, consciousness, and liberation. Advaita Vedānta, as taught by Śaṅkara, affirms the unity of ātman and Brahman. The tradition encourages critical debate and contemplative realization, blending logic with mystical inquiry. Its paradoxes still guide seekers today.
+              </p>
+              <p class="muted small">Reflective prompt: Can ultimate reality be grasped through words, or only through direct experience?</p>
+            </div>
+          </div>
+          <div class="mind" data-id="buddhism">
+            <div class="head"><strong>Buddhism</strong> <span class="meta">Middle Way, Emptiness</span> <button class="btn" onclick="toggleMind(this)">Read</button></div>
+            <div class="more">
+              <p>
+                Buddhism is a living philosophy as much as a religion. Its foundation is the four noble truths and the path to the cessation of suffering. Nāgārjuna’s Madhyamaka school, for example, dissolves rigid categories, revealing the emptiness of all phenomena. Buddhist reasoning is both analytic and contemplative, seeking freedom in the heart of paradox.
+              </p>
+              <p class="muted small">Reflective prompt: How does the notion of emptiness challenge our everyday concepts?</p>
+            </div>
+          </div>
+          <div class="mind" data-id="charvaka">
+            <div class="head"><strong>Charvaka</strong> <span class="meta">Materialist · Empiricism</span> <button class="btn" onclick="toggleMind(this)">Read</button></div>
+            <div class="more">
+              <p>Charvaka insists on perception as the only reliable cognition and rejects unverifiable metaphysics. Its clarity is a corrective: demand evidence and be explicit about burden of proof.</p>
+              <p class="muted small">Reflective prompt: identify contemporary metaphysical claims that require extraordinary evidence.</p>
+            </div>
+          </div>
+          <div class="mind" data-id="ajivika">
+            <div class="head"><strong>Ajivika</strong> <span class="meta">Determinism, Skepticism</span> <button class="btn" onclick="toggleMind(this)">Read</button></div>
+            <div class="more">
+              <p>
+                The Ajivika tradition taught a deterministic worldview, doubting personal agency and karma. Its radical skepticism offers a mirror to those who search for certainty, and a challenge: can one live meaningfully without the hope for change?
+              </p>
+              <p class="muted small">Reflective prompt: What are the comforts and dangers of believing in fate?</p>
+            </div>
+          </div>
+          <div class="mind" data-id="shankara">
+            <div class="head"><strong>Śaṅkara</strong> <span class="meta">Advaita Vedānta · Non-dualism</span> <button class="btn" onclick="toggleMind(this)">Read</button></div>
+            <div class="more">
+              <p>Śaṅkara’s non-dualism posits Brahman as ultimate reality and interprets scriptural testimony through rigorous dialectic. The challenge is to reconcile soteriological claims with epistemic standards acceptable to a rational reader.</p>
+              <p class="muted small">Reflective prompt: what would count as evidence for a non-dual metaphysical claim?</p>
+            </div>
+          </div>
+          <div class="mind" data-id="nagarjuna">
+            <div class="head"><strong>Nāgārjuna</strong> <span class="meta">Madhyamaka · Emptiness</span> <button class="btn" onclick="toggleMind(this)">Read</button></div>
+            <div class="more">
+              <p>Nāgārjuna’s method dissolves reified categories by demonstrating their dependence. The philosophical consequence is to shift focus from ontological claims to pragmatic and linguistic clarity.</p>
+              <p class="muted small">Reflective prompt: apply the tetralemma to a modern metaphysical claim.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="books">
+          <h2>Book Summaries</h2>
+          <p class="lede">Extended summaries: thesis, argumentative arc, and a critical reading that points to strengths, weaknesses, and study suggestions.</p>
+          <article>
+            <h3>Meditations — Marcus Aurelius</h3>
+            <p>
+              "Meditations" is a private journal in which a Roman emperor confronts the nature of self, duty, and society. Through stoic prose, Aurelius reflects on virtue, impermanence, and the logic of acceptance. The text is not a treatise, but a series of lucid invitations to personal integrity and inward strength.<br/>
+              <span class="muted small">Context: Why it matters—Stoic calm in chaotic times; relevance for both action and meditation.</span>
+            </p>
+            <div class="muted small">Study tip: Choose a passage and ask how it frames suffering as a teacher.</div>
+          </article>
+          <article>
+            <h3>Republic — Plato (Extended)</h3>
+            <p>
+              The "Republic" stages a wide-ranging conversation about justice, education, and the good. It explores the ideal city, the nature of rulers, the necessity of virtue, and the limits of democracy. Plato’s vision asks us to imagine a society guided by knowledge, but warns of the dangers of rigid utopianism.<br/>
+              <span class="muted small">Context: Why it matters—The roots of political theory and philosophical inquiry into justice.</span>
+            </p>
+            <div class="muted small">Study tip: trace the argument across the dialogue — notice where Socratic elenchus halts or redirects an interlocutor.</div>
+          </article>
+          <article>
+            <h3>Critique of Pure Reason — Immanuel Kant</h3>
+            <p>
+              Kant’s major work beautifully and exhaustively asks how knowledge is possible. He distinguishes phenomena (what appears) from noumena (what is) and sets the terms for modern discussions of science and ethics. Its style is dense, but the rewards are immense: every thoughtful reader is asked to walk through the conditions that make understanding possible.<br/>
+              <span class="muted small">Context: Why it matters—The scaffolding of contemporary epistemology and the boundary of reason.</span>
+            </p>
+            <div class="muted small">Study tip: Map the categories of understanding, then ask—can you find their limits?</div>
+          </article>
+          <article>
+            <h3>Bhagavad Gita</h3>
+            <p>
+              The "Gita" is a dialogue between warrior and god, threading action, devotion, and insight. Its grandeur lies in the interplay of dharma (righteousness), yoga (discipline), and renunciation. The Gita has influenced thinkers worldwide, appearing as a living invitation to live wisely and courageously.<br/>
+              <span class="muted small">Context: Why it matters—Dialogues on action and ethics that extend beyond tradition.</span>
+            </p>
+            <div class="muted small">Study tip: Select a verse and paraphrase its advice in contemporary language.</div>
+          </article>
+          <article>
+            <h3>Dhammapada</h3>
+            <p>
+              The "Dhammapada" is a collection of aphorisms distilled from the Buddha’s teachings. It is compassionate and practical, often pithy and always meditative. Each verse distills insight into how suffering arises and how liberation can be cultivated moment by moment.<br/>
+              <span class="muted small">Context: Why it matters—A bridge to Buddhist philosophy for every thoughtful reader.</span>
+            </p>
+            <div class="muted small">Study tip: Pick any verse and reflect—what habitual thought does it challenge?</div>
+          </article>
+          <article>
+            <h3>Selected Upanishads (Extended)</h3>
+            <p>Upanishadic texts combine metaphysical declarations with lived contemplative practices. Read them alongside pragmatic analyses: which claims are phenomenological, and which are doctrinal?</p>
+            <div class="muted small">Study tip: identify experiential claims and test them via interpretive comparison.</div>
+          </article>
+        </section>
+
+        <section id="evolution">
+          <h2>The Evolution of Thought</h2>
+          <p class="lede">A long, interactive timeline that invites readers to follow threads across cultures — metaphysics, ethics, and methods of justification.</p>
+          <div class="timeline">
+            <div class="event"><div class="title">6th–4th c. BCE</div><div>
+                In Greece, naturalism gave way to dialectic and ethical inquiry. In India, Vedic ritual met the challenge of heterodox systems: Buddhism, Jainism, Charvaka, Ajivika. Skepticism and metaphysics grew in parallel.
+              </div></div>
+            <div class="event"><div class="title">4th c. BCE</div><div>
+                Plato and Aristotle established the classical foundations: forms, logic, and the structures of virtue. In India, Upanishadic speculation blossomed, paving the way for Vedānta and Buddhist Abhidharma.
+              </div></div>
+            <div class="event"><div class="title">1st–6th c. CE (India)</div><div>
+                Systematization: Nāgārjuna’s Middle Way, debates on emptiness; Advaita, Vishishtadvaita, and Dvaita schools. Indian logic (Nyāya), skepticism, and flourishing dialogues.
+              </div></div>
+            <div class="event"><div class="title">11th–17th c. CE (West/India)</div><div>
+                Scholastic synthesis in the West; renaissance and the turn toward science. Indian thought integrates philosophical traditions into spiritual practices; emergence of new commentaries and rediscovered texts.
+              </div></div>
+            <div class="event"><div class="title">17th–19th c. CE</div><div>
+                Descartes, Spinoza, Locke, Kant: rising individualism, the problem of knowledge, and ethics rooted in autonomy. Indian reformers adapt ancient wisdom to modernity, searching for universals within tradition.
+              </div></div>
+            <div class="event"><div class="title">Modern Period</div><div>
+                Philosophy frames revolutions in science, language, consciousness, and politics—Nietzsche’s critique, existentialism’s search for meaning, and Indian thinkers (Tagore, Gandhi, Krishnamurti) pursue self-inquiry and global ethics.
+              </div></div>
+          </div>
+        </section>
+
+        <section id="reflections">
+          <h2>Reflections</h2>
+          <p class="lede">A meditative reading room. Reflective essays and prompts that encourage slow thinking. The site intentionally avoids interactivity that fragments attention — reflections are private and local to your browser (no cloud storage).</p>
+          <div class="reflections">
+            <p>
+              Essay: On Slow Reading — philosophy benefits when the reader resists rushing; argument reconstruction is a time-consuming art.<br/><br/>
+              Understand: Thoughtful reading means pausing with questions. When Western and Indian traditions meet, we find a path into the heart of dialogue: contrasting, converging, and sometimes simply listening to a voice that comes from another age.<br/><br/>
+              Prompt: When reflecting, ask—How do my own assumptions shape what I find meaningful here? What bridges can I build between “my” questions and those of other worlds?
+            </p>
+            <textarea placeholder="Your private reflections — stored locally in your browser." id="notes"></textarea>
+            <div style="margin-top:8px; color:var(--muted); font-size:13px">Notes are saved in browser storage only.</div>
+          </div>
+        </section>
+      </main>
+
+      <aside>
+        <div class="aside-card">
+          <strong>Quick Index</strong>
+          <div style="margin-top:10px; color:var(--muted)">
+            <a href="#foundations">Foundations</a> · <a href="#minds">The Great Minds</a> · <a href="#books">Book Summaries</a> · <a href="#evolution">Evolution</a> · <a href="#reflections">Reflections</a>
+          </div>
+        </div>
+        <div class="aside-card">
+          <strong>Search Results</strong>
+          <div id="results" class="results"><div class="muted small">Start typing in the search box to find ideas, names, and books.</div></div>
+        </div>
+        <div class="aside-card">
+          <strong>Study Practices</strong>
+          <ol style="margin:8px 0 0 16px; color:var(--muted)">
+            <li>Reconstruct arguments in premise→conclusion form.</li>
+            <li>Compare cross-cultural answers to a single question.</li>
+            <li>Write a 300-word reflective summary after reading.</li>
+          </ol>
+        </div>
+      </aside>
     </div>
-    <button class="btn" id="clearSearch">Clear</button>
+
+    <footer>
+      <div class="muted small">
+        Design: parchment aesthetics + modern layout. Tone: rational, accessible, and meditative. Content balance ≈70% Western / 30% Indian.<br/>
+        <br/>
+        Philosophy forms a bridge between cultures, inviting us to see difference not as division, but as a living conversation. In dialogue, old certainties fall away, and new questions arise—feeding the global search for wisdom, justice, and meaningful life.<br/>
+        The journey has no end, only ever deeper passages.<br/>
+        No public comments; private reflection only.
+      </div>
+    </footer>
   </div>
-</header>
-
-<div class="progress-wrap"><div class="progress"><i id="prog"></i></div></div>
-
-<div class="layout">
-  <main class="maincol" id="maincol">
-
-    <section id="foundations">
-      <h2>The Foundations</h2>
-      <p class="lede">Long-form primers that begin with an invitation: what is being asked, why it matters, and how to think about it. Each primer includes an interpretive reading and a set of practice prompts for active study.</p>
-
-      <article>
-        <h3>On Questions</h3>
-        <p>Philosophy begins with careful questioning — not to produce final answers, but to refine the map. A good question separates conceptual confusions and points to the evidence that would change minds.</p>
-        <div class="hover-quote"> <small class="muted">Tip</small>
-          <div class="tip">"Good philosophical questions are diagnostic: they reveal hidden assumptions."</div>
-        </div>
-        <div class="muted small" style="margin-top:8px">Practice: take a familiar claim and list what it presupposes.</div>
-      </article>
-
-      <article>
-        <h3>Methods: Reason, Experience, and Insight</h3>
-        <p>This primer compares analytic argumentation, historical-contextual critique, empirical support, and meditative insight. Readers are asked to examine which methods a claim relies on, and whether those methods are sufficient.</p>
-        <div class="muted small" style="margin-top:8px">Practice prompts: reconstruct an argument in premise→conclusion form; test its counterexamples.</div>
-      </article>
-    </section>
-
-    <section id="minds">
-      <h2>The Great Minds</h2>
-      <p class="lede">Deep profiles: each entry is exploratory — biography, central problems, core arguments, and a sustained critical reading. The collection balances Western (≈70%) and Indian (≈30%) thinkers, organized to encourage cross-cultural conversation.</p>
-
-      <!-- Example long entries (more can be added) -->
-      <div class="mind" data-id="plato">
-        <div class="head"><strong>Plato</strong> <span class="meta">c.427–347 BCE · Forms, Justice</span> <button class="btn" onclick="toggleMind(this)">Read</button></div>
-        <div class="more">
-          <p>Plato’s dialogues probe what a just life and a just polis might look like. The analytic move is to separate appearance from structure: are the social roles he sketches descriptive or prescriptive?</p>
-          <p class="muted small">Reflective prompt: how would Plato's republic treat dissent? What modern institutions echo Platonic ideas?</p>
-        </div>
-      </div>
-
-      <div class="mind" data-id="aristotle">
-        <div class="head"><strong>Aristotle</strong> <span class="meta">384–322 BCE · Causes, Virtue Ethics</span> <button class="btn" onclick="toggleMind(this)">Read</button></div>
-        <div class="more">
-          <p>Aristotle builds a naturalistic account of ethics and science. His teleology is often misunderstood: it's not mystical but a way to describe organized complexity.</p>
-          <p class="muted small">Reflective prompt: test Aristotelian teleology against modern developmental biology.</p>
-        </div>
-      </div>
-
-      <div class="mind" data-id="kant">
-        <div class="head"><strong>Immanuel Kant</strong> <span class="meta">1724–1804 · Epistemology & Ethics</span> <button class="btn" onclick="toggleMind(this)">Read</button></div>
-        <div class="more">
-          <p>Kant’s critical project asks: what structures must be in place for experience to be possible? Ethically, his universalizability test offers a distinctive way to evaluate duties.</p>
-          <p class="muted small">Reflective prompt: find a moral rule you hold — can it be universalized without contradiction?</p>
-        </div>
-      </div>
-
-      <div class="mind" data-id="shankara">
-        <div class="head"><strong>Śaṅkara</strong> <span class="meta">Advaita Vedānta · Non-dualism</span> <button class="btn" onclick="toggleMind(this)">Read</button></div>
-        <div class="more">
-          <p>Śaṅkara’s non-dualism posits Brahman as ultimate reality and interprets scriptural testimony through rigorous dialectic. The challenge is to reconcile soteriological claims with epistemic standards acceptable to a rational reader.</p>
-          <p class="muted small">Reflective prompt: what would count as evidence for a non-dual metaphysical claim?</p>
-        </div>
-      </div>
-
-      <div class="mind" data-id="nagarjuna">
-        <div class="head"><strong>Nāgārjuna</strong> <span class="meta">Madhyamaka · Emptiness</span> <button class="btn" onclick="toggleMind(this)">Read</button></div>
-        <div class="more">
-          <p>Nāgārjuna’s method dissolves reified categories by demonstrating their dependence. The philosophical consequence is to shift focus from ontological claims to pragmatic and linguistic clarity.</p>
-          <p class="muted small">Reflective prompt: apply the tetralemma to a modern metaphysical claim.</p>
-        </div>
-      </div>
-
-      <div class="mind" data-id="charvaka">
-        <div class="head"><strong>Charvaka</strong> <span class="meta">Materialist · Empiricism</span> <button class="btn" onclick="toggleMind(this)">Read</button></div>
-        <div class="more">
-          <p>Charvaka insists on perception as the only reliable cognition and rejects unverifiable metaphysics. Its clarity is a corrective: demand evidence and be explicit about burden of proof.</p>
-          <p class="muted small">Reflective prompt: identify contemporary metaphysical claims that require extraordinary evidence.</p>
-        </div>
-      </div>
-
-    </section>
-
-    <section id="books">
-      <h2>Book Summaries</h2>
-      <p class="lede">Extended summaries: thesis, argumentative arc, and a critical reading that points to strengths, weaknesses, and study suggestions.</p>
-
-      <article>
-        <h3>Plato — Republic (Extended)</h3>
-        <p>Republic stages a wide-ranging conversation about justice, education, and the good. Read as a sustained experiment: what political institutions produce virtue, and at what cost?</p>
-        <div class="muted small">Study tip: trace the argument across the dialogue — notice where Socratic elenchus halts or redirects an interlocutor.</div>
-      </article>
-
-      <article>
-        <h3>Selected Upanishads (Extended)</h3>
-        <p>Upanishadic texts combine metaphysical declarations with lived contemplative practices. Read them alongside pragmatic analyses: which claims are phenomenological, and which are doctrinal?</p>
-        <div class="muted small">Study tip: identify experiential claims and test them via interpretive comparison.</div>
-      </article>
-
-    </section>
-
-    <section id="evolution">
-      <h2>The Evolution of Thought</h2>
-      <p class="lede">A long, interactive timeline that invites readers to follow threads across cultures — metaphysics, ethics, and methods of justification.</p>
-
-      <div class="timeline">
-        <div class="event"><div class="title">6th–4th c. BCE</div><div>Early Greek naturalism and emergent Indian heterodox schools.</div></div>
-        <div class="event"><div class="title">4th c. BCE</div><div>Plato & Aristotle consolidate analytic frameworks for metaphysics and ethics.</div></div>
-        <div class="event"><div class="title">Classical Indian Period</div><div>Formation of Vedānta exegesis and Buddhist systematic philosophy.</div></div>
-        <div class="event"><div class="title">Modern Period</div><div>Critical turn: Descartes to Kant and beyond; emergence of professional philosophy.</div></div>
-      </div>
-    </section>
-
-    <section id="reflections">
-      <h2>Reflections</h2>
-      <p class="lede">A meditative reading room. Reflective essays and prompts that encourage slow thinking. The site intentionally avoids interactivity that fragments attention — reflections are private and local to your browser (no cloud storage).</p>
-
-      <div class="reflections">
-        <p>Essay: On Slow Reading — philosophy benefits when the reader resists rushing; argument reconstruction is a time-consuming art.</p>
-        <textarea placeholder="Your private reflections — stored locally in your browser." id="notes"></textarea>
-        <div style="margin-top:8px; color:var(--muted); font-size:13px">Notes are saved in browser storage only.</div>
-      </div>
-    </section>
-
-  </main>
-
-  <aside>
-    <div class="aside-card">
-      <strong>Quick Index</strong>
-      <div style="margin-top:10px; color:var(--muted)">
-        <a href="#foundations">Foundations</a> · <a href="#minds">The Great Minds</a> · <a href="#books">Book Summaries</a> · <a href="#evolution">Evolution</a> · <a href="#reflections">Reflections</a>
-      </div>
-    </div>
-
-    <div class="aside-card">
-      <strong>Search Results</strong>
-      <div id="results" class="results"><div class="muted small">Start typing in the search box to find ideas, names, and books.</div></div>
-    </div>
-
-    <div class="aside-card">
-      <strong>Study Practices</strong>
-      <ol style="margin:8px 0 0 16px; color:var(--muted)">
-        <li>Reconstruct arguments in premise→conclusion form.</li>
-        <li>Compare cross-cultural answers to a single question.</li>
-        <li>Write a 300-word reflective summary after reading.</li>
-      </ol>
-    </div>
-
-  </aside>
-</div>
-
-<footer><div class="muted small">Design: parchment aesthetics + modern layout. Tone: rational, accessible, and meditative. Content balance ≈70% Western / 30% Indian. No public comments; private reflection only.</div></footer>
-
-  </div>  <div class="modal" id="modal" aria-hidden="true"><div class="panel" role="dialog" aria-modal="true"><div id="modalContent"></div><div style="text-align:right"><button class="btn" id="closeModal">Close</button></div></div></div>  <script>
-    // Data store: lightweight mapping for search and content
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="panel" role="dialog" aria-modal="true"><div id="modalContent"></div>
+      <div style="text-align:right"><button class="btn" id="closeModal">Close</button></div></div></div>
+  <script>
+    // [unchanged: keep all original JS here]
     const index = [
+      {type:'mind', id:'socrates', title:'Socrates', text:'Ethics, elenchus, dialogue'},
       {type:'mind', id:'plato', title:'Plato', text:'Forms, justice, dialogues, Republic'},
       {type:'mind', id:'aristotle', title:'Aristotle', text:'Virtue, causes, Nichomachean Ethics'},
+      {type:'mind', id:'descartes', title:'Descartes', text:'Method, doubt, cogito'},
       {type:'mind', id:'kant', title:'Kant', text:'Critique, categories, moral law'},
+      {type:'mind', id:'nietzsche', title:'Nietzsche', text:'Values, critique, genealogy'},
+      {type:'mind', id:'vedanta', title:'Vedanta', text:'Non-dualism, ultimate reality'},
+      {type:'mind', id:'buddhism', title:'Buddhism', text:'Four noble truths, middle way, emptiness'},
+      {type:'mind', id:'charvaka', title:'Charvaka', text:'Materialism, perception-only'},
+      {type:'mind', id:'ajivika', title:'Ajivika', text:'Determinism, skepticism'},
       {type:'mind', id:'shankara', title:'Shankara', text:'Advaita, Brahman, Vedanta'},
-      {type:'mind', id:'nagarjuna', title:'Nagarjuna', text:'Madhyamaka, emptiness, dependent origination'},
-      {type:'mind', id:'charvaka', title:'Charvaka', text:'Materialism, perception-only'}
+      {type:'mind', id:'nagarjuna', title:'Nagarjuna', text:'Madhyamaka, emptiness, dependent origination'}
     ];
-
-    // Simple client-side search
     const input = document.getElementById('searchInput'); const resultsEl = document.getElementById('results');
     input.addEventListener('input', ()=>{
       const q = input.value.trim().toLowerCase(); if(!q){ resultsEl.innerHTML='<div class="muted small">Start typing in the search box to find ideas, names, and books.</div>'; return }
       const found = index.filter(item => (item.title+ ' '+ item.text).toLowerCase().includes(q));
       if(found.length===0){ resultsEl.innerHTML='<div class="muted small">No results.</div>'; return }
-      resultsEl.innerHTML = found.map(f=> `<div class="result-item"><strong>${f.title}</strong><div class="muted small">${f.text}</div><div style="margin-top:8px"><a href=\"#\" data-target=\"${f.id}\" class=\"open-link\">Open</a></div></div>`).join('');
+      resultsEl.innerHTML = found.map(f=> `<div class="result-item"><strong>${f.title}</strong><div class="muted small">${f.text}</div><div style="margin-top:8px"><a href="#" data-target="${f.id}" class="open-link">Open</a></div></div>`).join('');
       document.querySelectorAll('.open-link').forEach(a=> a.addEventListener('click', e=>{ e.preventDefault(); const id=a.dataset.target; const el = document.querySelector(`.mind[data-id="${id}"]`); if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); el.classList.add('open'); setTimeout(()=>el.classList.remove('open'),3600) } }))
     });
-
     document.getElementById('clearSearch').addEventListener('click', ()=>{ input.value=''; input.dispatchEvent(new Event('input')); input.focus(); });
-
-    // Toggle mind open
     function toggleMind(btn){ const container = btn.closest('.mind'); container.classList.toggle('open'); }
     window.toggleMind = toggleMind;
-
-    // Progress bar
     const prog = document.getElementById('prog'); const maincol = document.getElementById('maincol');
     function updateProgress(){ const rect = maincol.getBoundingClientRect(); const top = window.scrollY; const total = document.body.scrollHeight - window.innerHeight; const percent = Math.max(0, Math.min(100, (top / total) * 100)); prog.style.width = percent + '%'; }
     window.addEventListener('scroll', updateProgress, {passive:true}); window.addEventListener('resize', updateProgress); updateProgress();
-
-    // Notes saved locally
     const notes = document.getElementById('notes'); if(notes){ notes.value = localStorage.getItem('pbw_notes') || ''; notes.addEventListener('input', ()=> localStorage.setItem('pbw_notes', notes.value)); }
-
-    // Modal controls
     document.getElementById('closeModal').addEventListener('click', ()=>{ document.getElementById('modal').classList.remove('open'); document.getElementById('modal').setAttribute('aria-hidden','true'); });
     document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ document.getElementById('modal').classList.remove('open'); document.getElementById('modal').setAttribute('aria-hidden','true'); } });
-
-    // Hover quote accessibility: show tips when focus is on elements
     document.querySelectorAll('.hover-quote').forEach(h=>{ const tip = h.querySelector('.tip'); h.addEventListener('focusin', ()=> tip.style.opacity=1); h.addEventListener('focusout', ()=> tip.style.opacity=''); });
-
-    // Respect reduced motion
     if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ document.documentElement.style.setProperty('--transition','0ms'); }
-
-  </script></body>
+  </script>
+</body>
 </html>
