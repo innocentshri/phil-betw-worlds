@@ -1,308 +1,298 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Philosophy Between Worlds</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family+Cormorant+Gramond:wght@300;400;600&family=Lora:wght@300;400;600&display=swap" rel="stylesheet">
-
-
-    <style>
-        :root{
-            --paper: #f3eede;
-            --ink: #2b2b23;
-            --muted: #6b655b;
-            --accent: #6b4f2b;
-            --max-width: 880px;
-            --radius: 12px;
-            --grain: rgb(0,0,0,0.02);
-            -o-transition: 260ms cubic-bezier(.2,.9,.3,.1);
-        }
-
-        *{box-sizing: border-box}
-        html.body{height: 100%;}
-        body{
-            margin: 0;
-            font-family: 'Lora', Georgia, 'Times New Roman', serif;
-            background: linear-gradient(180deg, var(--paper), #efe7d8 60%);
-            color: var(--ink);
-            -webkit-font-smoothing:antialiased;
-            -moz-osx-font-smoothing:grayscale;
-            line-height: 1.68;
-            padding: 48px 20px;
-            display: flex; justify-content: center;
-        }
-
-        .site{
-            width: 100%;
-            max-width: var(--max-width);
-            background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.85));
-            border-radius: var(--radius);
-            padding: 48px 56px;
-            box-shadow: 0 8px 30px rgba(62, 50, 36, 0.08);
-            position: relative;
-            overflow:hidden;
-        }
-        .site:before{
-            content:''; position:absolute; inset: 0; pointer-events: none; border-radius: inherit;
-            background-image: linear-gradient(transparent 40%, rgba(255,255,255,0.2) 41%);
-            mix-blend-mode: multiply; opacity: 0.7;
-        }
-
-        
-        header{display: flex;align-items: flex-start;gap: 18px;margin-bottom: 28px;}
-        .logo{
-            font-family: 'Cormorant Gradient', 'Times New Roman', serif;
-            font-weight: 600;
-            font-size: 28px;
-            color: var(--accent);
-            letter-spacing:0.6px;
-            line-height:1;
-            margin-top: 2px;
-        }
-        .tag{
-            color: var(--muted); font-size: 13px; margin-top:6px;
-        }
-
-        nav{margin-left: auto;}
-        mav a{
-            color: var(--muted); text-decoration: none; font-size: 14px; margin-left:18px;
-            transition:color var(--transition), transform var(--transition);
-        }
-        nav a:hover{ color: var(--ink); transform: translate(-2px);}
-
-        main{display:block}
-
-        h1,h2,h3{font-family: 'Cormorant Garamond', serif; color: var(--ink); margin: 0 0 12px 0}
-        h1{font-size:34px}
-        h2{font-size:20px}
-        h3{font-size:16px}
-
-
-    .lede{color: var(--muted); font-size: 15px; margin-bottom:24px}
-
-    section{margin: 36px 0; opacity: 0; transform: translateY(6px); animation: fadeIn 420ms ease forwards;}
-    section:nth-of-type(1){animation-delay: 80ms;}
-    section:nth-of-type(2){animation-delay: 160ms;}
-    section:nth-of-type(3){animation-delay: 240ms;}
-    section:nth-of-type(4){animation-delay: 320ms;}
-    section:nth-of-type(5){animation-delay: 400ms;}
-
-        
-    @keyframes fadeIn{to{opacity:1; transform:none}}
-
-    .reading{
-        background:rgba(255, 255, 255, 0.6);
-        border-radius: 10px; padding: 22px 22px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
-        border-left: 3px solid rgba(107, 79, 43, 0.06);
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Philosophy Between Worlds</title>  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Lora:wght@300;400;600&display=swap" rel="stylesheet">  <style>
+    :root{
+      --paper:#f6efe4; --paper-2:#efe5cf; --ink:#2b2b23; --muted:#6b655b; --accent:#6b4f2b; --glass:rgba(255,255,255,0.6);
+      --max-width:1200px; --radius:14px; --transition:300ms cubic-bezier(.2,.9,.3,1);
     }
 
-    p{margin: 0 0 18px 0; color: var(--ink);}
-    .muted{color: var(--muted);}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:'Lora', Georgia, serif; background:linear-gradient(180deg,var(--paper),var(--paper-2)); color:var(--ink);
+      -webkit-font-smoothing:antialiased; padding:22px; display:flex; justify-content:center; align-items:flex-start;
+    }
 
-    .grid{display:grid; grid-template-columns: 1fr 1fr; gap: 18px}
-    .card{padding:14px; border-radius:8px; background: linear-gradient(180deg);}
-    philosopher-title{font-weight:600; margin-bottom:6px}
-    .meta{font-size:13px; color:var(--muted)}
+    .site{width:100%; max-width:var(--max-width); background:linear-gradient(180deg, rgba(255,255,255,0.66), rgba(255,255,255,0.9)); border-radius:var(--radius); padding:22px 28px; box-shadow:0 18px 60px rgba(30,20,10,0.06); overflow:hidden}
 
-    /* Timeline — simple vertical layout */
-    .timeline{border-left:2px solid rgba(107,79,43,0.09); padding-left:18px}
-    .event{margin:12px 0}
-    .event time{display:block; font-size:13px; color:var(--muted); margin-bottom:6px}
+    /* Top row */
+    header{display:flex; gap:18px; align-items:flex-start}
+    .brand{font-family:'Cormorant Garamond', serif; color:var(--accent); font-size:30px}
+    .tag{color:var(--muted); margin-top:6px}
 
-    footer{border-top:1px dashed rgba(107,79,43,0.06); margin-top:40px; padding-top:16px; color:var(--muted); font-size:13px}
+    /* Search & controls */
+    .controls{margin-left:auto; display:flex; gap:10px; align-items:center}
+    .search{position:relative}
+    .search input{padding:10px 12px; border-radius:10px; border:1px solid rgba(107,79,43,0.06); background:var(--glass); width:260px}
+    .btn{padding:8px 12px; border-radius:10px; background:var(--glass); border:1px solid rgba(107,79,43,0.06); cursor:pointer}
 
-    /* Responsiveness */
-    @media (max-width:720px){ .site{padding:28px 20px} .grid{grid-template-columns:1fr} nav{display:none} h1{font-size:26px} }
+    /* Progress */
+    .progress-wrap{position:sticky; top:14px; z-index:40; margin-top:8px;}
+    .progress{height:6px; background:rgba(107,79,43,0.06); border-radius:8px; overflow:hidden}
+    .progress > i{display:block; height:100%; width:0%; background:linear-gradient(90deg,var(--accent), #8a5a2e); transition:width 160ms linear}
 
-    /* Accessibility preferences */
+    /* Layout */
+    .layout{display:grid; grid-template-columns: 1fr 380px; gap:28px; margin-top:18px}
+    .maincol{padding:18px; background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.75)); border-radius:12px}
+    aside{position:sticky; top:88px; align-self:start}
+    .aside-card{background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.86)); padding:14px; border-radius:10px; margin-bottom:14px}
+
+    /* Sections */
+    section{margin-bottom:28px; opacity:0; transform:translateY(6px); animation:fadeIn 420ms ease forwards}
+    section:nth-of-type(1){animation-delay:80ms} section:nth-of-type(2){animation-delay:200ms} section:nth-of-type(3){animation-delay:320ms} section:nth-of-type(4){animation-delay:440ms} section:nth-of-type(5){animation-delay:560ms}
+    @keyframes fadeIn{to{opacity:1; transform:none}}
+
+    h2{font-family:'Cormorant Garamond', serif; margin:6px 0 12px 0}
+    .lede{color:var(--muted)}
+    article{margin-bottom:18px}
+
+    /* The Great Minds — expandable list */
+    .mind{padding:12px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.5)); border-left:4px solid rgba(107,79,43,0.06); margin-bottom:8px}
+    .mind .meta{color:var(--muted); font-size:13px}
+    .mind .more{max-height:0; overflow:hidden; transition:max-height 260ms ease}
+    .mind.open .more{max-height:420px}
+
+    /* Hover quotes */
+    .hover-quote{position:relative}
+    .hover-quote .tip{position:absolute; left:calc(100% + 12px); top:6px; min-width:240px; max-width:320px; background:var(--glass); padding:12px; border-radius:10px; box-shadow:0 12px 34px rgba(30,20,10,0.08); opacity:0; transform:translateY(6px); transition:opacity 180ms ease, transform 180ms ease; pointer-events:none}
+    .hover-quote:hover .tip{opacity:1; transform:none; pointer-events:auto}
+
+    /* Timeline */
+    .timeline{border-left:2px solid rgba(107,79,43,0.07); padding-left:14px}
+    .event{margin:10px 0}
+    .event .title{font-weight:600}
+
+    /* Reflections */
+    .reflections textarea{width:100%; min-height:140px; border-radius:10px; padding:12px; border:1px solid rgba(107,79,43,0.06)}
+
+    /* Search results */
+    .results{margin-top:10px}
+    .result-item{padding:10px; border-radius:8px; background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.5)); margin-bottom:8px}
+
+    footer{margin-top:18px; color:var(--muted); font-size:13px}
+
+    /* Modal & accessibility */
+    .modal{position:fixed; left:0; top:0; right:0; bottom:0; display:flex; align-items:center; justify-content:center; background:rgba(10,10,10,0.32); opacity:0; pointer-events:none; transition:opacity 220ms ease}
+    .modal.open{opacity:1; pointer-events:auto}
+    .modal .panel{background:var(--paper); padding:20px; border-radius:12px; width:92%; max-width:720px}
+
+    @media (max-width:980px){ .layout{grid-template-columns:1fr} aside{position:static} .search input{width:180px} }
     @media (prefers-reduced-motion: reduce){ *{animation:none!important; transition:none!important} }
-
-    /* Typography tweaks for longform */
-    .quote{font-style:italic; color:var(--muted); border-left:3px solid rgba(107,79,43,0.06); padding-left:12px; margin:8px 0}
-    .small{font-size:13px}
-
-    
-    
-    </style>
-    
-    
-    
-    
-</head>
+  </style></head>
 <body>
-    <div class="site" role="main">
-        <header>
-            <div>
-                <div class="logo">Philosophy Between Worlds</div>
-                <div class="tag">A minimal, reading-first library -- rational, reflection, and timeless.</div>
-            </div>
-
-            <nav aria-label="Primary">
-                <a href="#foundations">The foundations</a>
-                <a href="#philosophers">Philosophers</a>
-                <a href="#summaries">Book Summaries</a>
-                <a href="#timeline">Timelines</a>
-                <a href="#about">About</a>
-            </nav>
-        </header>
-
-        <main>
-            <h1>Between Ancient Insight and Modern Clarity</h1>
-            <p class="lede">This reading space mixes close, evidence-based explanations with contemplative essays. The scope is 70% Western thought and 30% Indian tradition (Vedant, Buddhist schools, and materialistic Charvaka), structured to welcome beginners while offering deeper analysis for committed readers.</p>
-
-            <section id="foundations" class="reading">
-                <h2>The Foundations</h2>
-                <p class="muted small">Concise primers to orient the reader, Each entry begins simple and then provides a short analytical subsection.</p>
-
-                <article>
-                    <h3>1. What is Philosophy?</h3>
-                    <p>Philosophy asks questions about truth, existence, ethics, and reasoning. Practically, it trains tools: conceptual clarity, argument assessment, and the ability to map competing frameworks. Beginners should learn to distinguish claims (What is) from normative claims (what ought to be).</p>
-
-                    <div class="quote">Analytical note: Approach every claim bhy identifying its definitional core, underlying assumption, and the argument that connects the argument that connects them. Ask: what would falsify it?</div>
-                </article>
-
-                <article>
-                    <h3>2. Methods & Branches</h3>
-                    <p>Introduce logic, epistemology, metaphysics, ethics, political philosophy, and aesthetics. Contrast Western thinkers, and key Indian voices (Vedanta, Buddhism, Charvaka). Each tile include a precise problem the philosopher addresses, followed by a short analysis.</p>
-
-                    <p class="muted small">Deeper: A careful reader notices how different traditions prioritize evidence (empirical, textual, rational, or phenomenological) and adapts their critical tools accordingly.</p>
-                </article>
-            </section>
-
-            <section id="philosophers">
-                <h2>Philosophers</h2>
-                <p class="muted small">Representative figures grouped to reflect the site's 70/30 emphasis: major Western thinkers, and key Indian Voices (Vedanta, Charvaka, Buddhist, Charvaka). Each title includes a precise problem the philosopher addresses, followed by a short analysis.</p>
-
-                <div class="grid">
-                    <div class="card">
-                        <div class="philosopher-title">Plato (c. 427-347 BCE)</div>
-                        <div class="meta">Forms, knowledge and the good</div>
-                        <p>Plato posits a distinction between everyday particulars and timeless Forms. Analytically, his method shows how explanatory economy (one theory explaining many phenomena) can be persuasive, but it raises questions about epistemic access to those Forms.</p>
-                    </div>
-
-                    <div class="card">
-                        <div class="philosopher-title">Aristotle (384-322 BCE)</div>
-                        <div class="meta">Causation, virtue ethics, sciences</div>
-                        <p>Aristotle develops categories and teleology. His practical ethics centers habituation and the mean; modern readers can extract actionable frameworks moral reasoning while testing the teleological assumption in contemporary science.</p>
-                    </div>
-
-                    <div class="card">
-                        <div class="philosopher-title">Rene Descartes (1596-1650)</div>
-                        <div class="meta">Methodic doubt, cogito</div>
-                        <p>Descartes' radical doubt seeks certainty by withholding trust. Useful as a methodological move, it illuminates where beliefs are fragile but the move from clear ideas to knowledge remains contested.</p>
-                    </div>
-
-                    <div class="card">
-                        <div class="philosopher-title">Immanuel Kant (1724-1804)</div>
-                        <div class="meta">Synthetic a priori, moral law</div>
-                        <p>Kant reframes epistemology: the mind structures experience. His ethical constructive provides a non-consequentialist test for actions (universalizability) that remains highly influential and testable against moral intuitions. </p>
-                    </div>
-
-                    <div class="card">
-                        <div class="philosopher-title">Adi Shankaracharya (Advaita Vedanta, 8th century?)</div>
-                        <div class="meta">Non-dualism, Brahman, Maya</div>
-                        <p>Shankaracharya argues for an ultimate non-dual reality (Brahman) and treats empirical multiplicity as maya (apparent). For comparative analysis, probe the epistemic status of scriptural testimony versus inferential evidence.</p>
-                    </div>
-
-                    <div class="card">
-                        <div class="philosopher-title">Nagarjuna (Buddhist Madhyamaka)</div>
-                        <div class="meta">Emptiness, dependent origination</div>
-                        <p>Nagarjuna deconstructs substantialist views by showing how dependent-arising undermines fixed essences. Analytically, this offers a tool for dissolving category-errors in metaphysics and language.</p>              
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="philosopher-title">Charvaka</div>
-                        <div class="meta">materialism, empirical skepticism</div>
-                        <p>Charvaka insists on perception as the sole reliable source of knowledge and rejects post-mortem continuities. Its clarity forces modern readers to confront the evidential limits of metaphysical claims.</p>
-                    </div>
-
-                    <div class="card">
-                        <div class="philosopher-title">John Stuart Will (1806-1873)</div>
-                        <div class="meta">Utilitarianism, liberty</div>
-                        <p>Mill articulates consequentialist reasoning and defends individual liberty as a social good. Critical readers examine trade-offs between aggregate utility and rights-based protection.</p>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="summaries" class="reading">
-                <h2>Book Summaries</h2>
-                <p class="muted small">Short synopses with a clear statement of thesis, the argument's structure, and one critical takeaway per book. Designed to help readers decide what to read next and what to watch for when they do.</p>
-                
-                <div class="grid">
-                    <div class="card">
-                        <div class="philosopher-title">"Republic" - Plato</div>
-                        <div class="meta">Thesis: Justice as harmony of parts</div>
-                        <p>Structure: dialogue probing justice, the ideal city, and the philosopher-king. Takeaway: examine political ideals for hidden psychological assumption about human nature.</p>
-                    </div>
-
-                    <div class="card">
-                        <div class="philosopher-title">"Critique of Pure Reason" - Kant</div>
-                        <div class="meta">Thesis: condition of possible experience</div>
-                        <p>Structure: transcendental deduction, schematism, critique of metaphysics. Takeaway: separate claims about experience from claims about the noumenal; test metaphysical arguments against Kant's criteria.</p>
-                    </div>
-
-                    <div class="card">
-                        <div class="philosopher-title">Selected Upanishads (intro)</div>
-                        <div class="meta">Thesis: self and ultimate reality</div>
-                        <p>Structure: aphoristic dialogue and meditative statements. Takeaway: identify experimental claims (meditative, soteriological) versus doctrinal claims.</p>
-                    </div>
-
-                    <div class="card">
-                        <div class="philosopher-title">Nagarjuna: "Mulamadhyamakakarika" (intro)</div>
-                        <div class="meta">Thesis: emptiness of inherent essence</div>
-                        <p>Structure: dialectical refutation of essentialist positions. Takeaway: use emptiness as an analytic method to test ontological commitments.</p>
-                    </div>
-                </div>
-            </section>
-
-            <section id="timeline">
-                <h2>Timelines</h2>
-                <p class="muted small">A curated timeline places ideas and authors in historical context, emphasizing intellectual connections across cultures.</p>
-                <div>
-                    <div class="event">
-                        <time>c. 6th-4th century BCE</time>
-                        <div><strong>Pre-Socratic thinkers & Early Indian schools</strong> - formative cosmologies and metaphysics appear in Hellenic and South Asia thought.</div>
-                    </div>
-                
-                
-                    <div class="event">
-                        <time>c. 4th century BCE</time>
-                        <div><strong>Plato & Aristotle</strong>- foundations of Western philosophy; teleology and forms vs. categories and empirical observation.</div>
-                    </div>
-                
-                    <div class="event">
-                        <time>c. 1st millennium CE</time>
-                        <div><strong>Nagarjuna, Advaita commentaries</strong> - major developments in Buddhist and Vedantic metaphysics.</div>
-                    </div>
-                
-                    <div class="event">
-                        <time>17th-19th centuries</time>
-                        <div><strong>Modern European philosophy</strong> - Descartes, Kant, Mill; emergence of modern epistemology, ethics, and political philosophy.</div>
-                    </div>
-                    
-                    <div class="event">
-                        <time>19th-20th centuries</time>
-                        <div><strong>Analytic, Continental, and comparative studies</strong> - professionalization and specialization of philosophical methods.</div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="about" class="reading">
-                <h2>About</h2>
-                <p>This site is intentionally minimal: no comments, no trackers, no interactive distraction - only clean, close reading. The essays and primers aim for clarity, evidence-first analysis, and a calm tone. The distribution aims roughly 70% Western material and 30% Indian material so readers encounter both the analytic and contemplative traditions on their own merits.</p>
-
-                <p class="muted small">Use: read linearly, or follow the topical anchors. For study, copy passage into your notes, test arguments by reconstructing premises and conclusion, and compare cross-cultural treatments of the same problem.</p>
-            </section>
-            
-            <footer>
-                <div class="small muted">Made for focused reading. Design: ancient-modern aesthetic, serif typography, and soft parchment tones. No comments, just text.</div>
-            </footer>
-        </main>
+  <div class="site" id="site">
+    <header>
+      <div>
+        <div class="brand">Philosophy Between Worlds</div>
+        <div class="tag">A long-form, explorative reading journey — rational, accessible, and meditative.</div>
+      </div><div class="controls">
+    <div class="search" role="search">
+      <input id="searchInput" type="search" placeholder="Search ideas, names, books..." aria-label="Search the library" />
     </div>
-</body>
+    <button class="btn" id="clearSearch">Clear</button>
+  </div>
+</header>
+
+<div class="progress-wrap"><div class="progress"><i id="prog"></i></div></div>
+
+<div class="layout">
+  <main class="maincol" id="maincol">
+
+    <section id="foundations">
+      <h2>The Foundations</h2>
+      <p class="lede">Long-form primers that begin with an invitation: what is being asked, why it matters, and how to think about it. Each primer includes an interpretive reading and a set of practice prompts for active study.</p>
+
+      <article>
+        <h3>On Questions</h3>
+        <p>Philosophy begins with careful questioning — not to produce final answers, but to refine the map. A good question separates conceptual confusions and points to the evidence that would change minds.</p>
+        <div class="hover-quote"> <small class="muted">Tip</small>
+          <div class="tip">"Good philosophical questions are diagnostic: they reveal hidden assumptions."</div>
+        </div>
+        <div class="muted small" style="margin-top:8px">Practice: take a familiar claim and list what it presupposes.</div>
+      </article>
+
+      <article>
+        <h3>Methods: Reason, Experience, and Insight</h3>
+        <p>This primer compares analytic argumentation, historical-contextual critique, empirical support, and meditative insight. Readers are asked to examine which methods a claim relies on, and whether those methods are sufficient.</p>
+        <div class="muted small" style="margin-top:8px">Practice prompts: reconstruct an argument in premise→conclusion form; test its counterexamples.</div>
+      </article>
+    </section>
+
+    <section id="minds">
+      <h2>The Great Minds</h2>
+      <p class="lede">Deep profiles: each entry is exploratory — biography, central problems, core arguments, and a sustained critical reading. The collection balances Western (≈70%) and Indian (≈30%) thinkers, organized to encourage cross-cultural conversation.</p>
+
+      <!-- Example long entries (more can be added) -->
+      <div class="mind" data-id="plato">
+        <div class="head"><strong>Plato</strong> <span class="meta">c.427–347 BCE · Forms, Justice</span> <button class="btn" onclick="toggleMind(this)">Read</button></div>
+        <div class="more">
+          <p>Plato’s dialogues probe what a just life and a just polis might look like. The analytic move is to separate appearance from structure: are the social roles he sketches descriptive or prescriptive?</p>
+          <p class="muted small">Reflective prompt: how would Plato's republic treat dissent? What modern institutions echo Platonic ideas?</p>
+        </div>
+      </div>
+
+      <div class="mind" data-id="aristotle">
+        <div class="head"><strong>Aristotle</strong> <span class="meta">384–322 BCE · Causes, Virtue Ethics</span> <button class="btn" onclick="toggleMind(this)">Read</button></div>
+        <div class="more">
+          <p>Aristotle builds a naturalistic account of ethics and science. His teleology is often misunderstood: it's not mystical but a way to describe organized complexity.</p>
+          <p class="muted small">Reflective prompt: test Aristotelian teleology against modern developmental biology.</p>
+        </div>
+      </div>
+
+      <div class="mind" data-id="kant">
+        <div class="head"><strong>Immanuel Kant</strong> <span class="meta">1724–1804 · Epistemology & Ethics</span> <button class="btn" onclick="toggleMind(this)">Read</button></div>
+        <div class="more">
+          <p>Kant’s critical project asks: what structures must be in place for experience to be possible? Ethically, his universalizability test offers a distinctive way to evaluate duties.</p>
+          <p class="muted small">Reflective prompt: find a moral rule you hold — can it be universalized without contradiction?</p>
+        </div>
+      </div>
+
+      <div class="mind" data-id="shankara">
+        <div class="head"><strong>Śaṅkara</strong> <span class="meta">Advaita Vedānta · Non-dualism</span> <button class="btn" onclick="toggleMind(this)">Read</button></div>
+        <div class="more">
+          <p>Śaṅkara’s non-dualism posits Brahman as ultimate reality and interprets scriptural testimony through rigorous dialectic. The challenge is to reconcile soteriological claims with epistemic standards acceptable to a rational reader.</p>
+          <p class="muted small">Reflective prompt: what would count as evidence for a non-dual metaphysical claim?</p>
+        </div>
+      </div>
+
+      <div class="mind" data-id="nagarjuna">
+        <div class="head"><strong>Nāgārjuna</strong> <span class="meta">Madhyamaka · Emptiness</span> <button class="btn" onclick="toggleMind(this)">Read</button></div>
+        <div class="more">
+          <p>Nāgārjuna’s method dissolves reified categories by demonstrating their dependence. The philosophical consequence is to shift focus from ontological claims to pragmatic and linguistic clarity.</p>
+          <p class="muted small">Reflective prompt: apply the tetralemma to a modern metaphysical claim.</p>
+        </div>
+      </div>
+
+      <div class="mind" data-id="charvaka">
+        <div class="head"><strong>Charvaka</strong> <span class="meta">Materialist · Empiricism</span> <button class="btn" onclick="toggleMind(this)">Read</button></div>
+        <div class="more">
+          <p>Charvaka insists on perception as the only reliable cognition and rejects unverifiable metaphysics. Its clarity is a corrective: demand evidence and be explicit about burden of proof.</p>
+          <p class="muted small">Reflective prompt: identify contemporary metaphysical claims that require extraordinary evidence.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <section id="books">
+      <h2>Book Summaries</h2>
+      <p class="lede">Extended summaries: thesis, argumentative arc, and a critical reading that points to strengths, weaknesses, and study suggestions.</p>
+
+      <article>
+        <h3>Plato — Republic (Extended)</h3>
+        <p>Republic stages a wide-ranging conversation about justice, education, and the good. Read as a sustained experiment: what political institutions produce virtue, and at what cost?</p>
+        <div class="muted small">Study tip: trace the argument across the dialogue — notice where Socratic elenchus halts or redirects an interlocutor.</div>
+      </article>
+
+      <article>
+        <h3>Selected Upanishads (Extended)</h3>
+        <p>Upanishadic texts combine metaphysical declarations with lived contemplative practices. Read them alongside pragmatic analyses: which claims are phenomenological, and which are doctrinal?</p>
+        <div class="muted small">Study tip: identify experiential claims and test them via interpretive comparison.</div>
+      </article>
+
+    </section>
+
+    <section id="evolution">
+      <h2>The Evolution of Thought</h2>
+      <p class="lede">A long, interactive timeline that invites readers to follow threads across cultures — metaphysics, ethics, and methods of justification.</p>
+
+      <div class="timeline">
+        <div class="event"><div class="title">6th–4th c. BCE</div><div>Early Greek naturalism and emergent Indian heterodox schools.</div></div>
+        <div class="event"><div class="title">4th c. BCE</div><div>Plato & Aristotle consolidate analytic frameworks for metaphysics and ethics.</div></div>
+        <div class="event"><div class="title">Classical Indian Period</div><div>Formation of Vedānta exegesis and Buddhist systematic philosophy.</div></div>
+        <div class="event"><div class="title">Modern Period</div><div>Critical turn: Descartes to Kant and beyond; emergence of professional philosophy.</div></div>
+      </div>
+    </section>
+
+    <section id="reflections">
+      <h2>Reflections</h2>
+      <p class="lede">A meditative reading room. Reflective essays and prompts that encourage slow thinking. The site intentionally avoids interactivity that fragments attention — reflections are private and local to your browser (no cloud storage).</p>
+
+      <div class="reflections">
+        <p>Essay: On Slow Reading — philosophy benefits when the reader resists rushing; argument reconstruction is a time-consuming art.</p>
+        <textarea placeholder="Your private reflections — stored locally in your browser." id="notes"></textarea>
+        <div style="margin-top:8px; color:var(--muted); font-size:13px">Notes are saved in browser storage only.</div>
+      </div>
+    </section>
+
+  </main>
+
+  <aside>
+    <div class="aside-card">
+      <strong>Quick Index</strong>
+      <div style="margin-top:10px; color:var(--muted)">
+        <a href="#foundations">Foundations</a> · <a href="#minds">The Great Minds</a> · <a href="#books">Book Summaries</a> · <a href="#evolution">Evolution</a> · <a href="#reflections">Reflections</a>
+      </div>
+    </div>
+
+    <div class="aside-card">
+      <strong>Search Results</strong>
+      <div id="results" class="results"><div class="muted small">Start typing in the search box to find ideas, names, and books.</div></div>
+    </div>
+
+    <div class="aside-card">
+      <strong>Study Practices</strong>
+      <ol style="margin:8px 0 0 16px; color:var(--muted)">
+        <li>Reconstruct arguments in premise→conclusion form.</li>
+        <li>Compare cross-cultural answers to a single question.</li>
+        <li>Write a 300-word reflective summary after reading.</li>
+      </ol>
+    </div>
+
+  </aside>
+</div>
+
+<footer><div class="muted small">Design: parchment aesthetics + modern layout. Tone: rational, accessible, and meditative. Content balance ≈70% Western / 30% Indian. No public comments; private reflection only.</div></footer>
+
+  </div>  <div class="modal" id="modal" aria-hidden="true"><div class="panel" role="dialog" aria-modal="true"><div id="modalContent"></div><div style="text-align:right"><button class="btn" id="closeModal">Close</button></div></div></div>  <script>
+    // Data store: lightweight mapping for search and content
+    const index = [
+      {type:'mind', id:'plato', title:'Plato', text:'Forms, justice, dialogues, Republic'},
+      {type:'mind', id:'aristotle', title:'Aristotle', text:'Virtue, causes, Nichomachean Ethics'},
+      {type:'mind', id:'kant', title:'Kant', text:'Critique, categories, moral law'},
+      {type:'mind', id:'shankara', title:'Shankara', text:'Advaita, Brahman, Vedanta'},
+      {type:'mind', id:'nagarjuna', title:'Nagarjuna', text:'Madhyamaka, emptiness, dependent origination'},
+      {type:'mind', id:'charvaka', title:'Charvaka', text:'Materialism, perception-only'}
+    ];
+
+    // Simple client-side search
+    const input = document.getElementById('searchInput'); const resultsEl = document.getElementById('results');
+    input.addEventListener('input', ()=>{
+      const q = input.value.trim().toLowerCase(); if(!q){ resultsEl.innerHTML='<div class="muted small">Start typing in the search box to find ideas, names, and books.</div>'; return }
+      const found = index.filter(item => (item.title+ ' '+ item.text).toLowerCase().includes(q));
+      if(found.length===0){ resultsEl.innerHTML='<div class="muted small">No results.</div>'; return }
+      resultsEl.innerHTML = found.map(f=> `<div class="result-item"><strong>${f.title}</strong><div class="muted small">${f.text}</div><div style="margin-top:8px"><a href=\"#\" data-target=\"${f.id}\" class=\"open-link\">Open</a></div></div>`).join('');
+      document.querySelectorAll('.open-link').forEach(a=> a.addEventListener('click', e=>{ e.preventDefault(); const id=a.dataset.target; const el = document.querySelector(`.mind[data-id="${id}"]`); if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); el.classList.add('open'); setTimeout(()=>el.classList.remove('open'),3600) } }))
+    });
+
+    document.getElementById('clearSearch').addEventListener('click', ()=>{ input.value=''; input.dispatchEvent(new Event('input')); input.focus(); });
+
+    // Toggle mind open
+    function toggleMind(btn){ const container = btn.closest('.mind'); container.classList.toggle('open'); }
+    window.toggleMind = toggleMind;
+
+    // Progress bar
+    const prog = document.getElementById('prog'); const maincol = document.getElementById('maincol');
+    function updateProgress(){ const rect = maincol.getBoundingClientRect(); const top = window.scrollY; const total = document.body.scrollHeight - window.innerHeight; const percent = Math.max(0, Math.min(100, (top / total) * 100)); prog.style.width = percent + '%'; }
+    window.addEventListener('scroll', updateProgress, {passive:true}); window.addEventListener('resize', updateProgress); updateProgress();
+
+    // Notes saved locally
+    const notes = document.getElementById('notes'); if(notes){ notes.value = localStorage.getItem('pbw_notes') || ''; notes.addEventListener('input', ()=> localStorage.setItem('pbw_notes', notes.value)); }
+
+    // Modal controls
+    document.getElementById('closeModal').addEventListener('click', ()=>{ document.getElementById('modal').classList.remove('open'); document.getElementById('modal').setAttribute('aria-hidden','true'); });
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ document.getElementById('modal').classList.remove('open'); document.getElementById('modal').setAttribute('aria-hidden','true'); } });
+
+    // Hover quote accessibility: show tips when focus is on elements
+    document.querySelectorAll('.hover-quote').forEach(h=>{ const tip = h.querySelector('.tip'); h.addEventListener('focusin', ()=> tip.style.opacity=1); h.addEventListener('focusout', ()=> tip.style.opacity=''); });
+
+    // Respect reduced motion
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ document.documentElement.style.setProperty('--transition','0ms'); }
+
+  </script></body>
 </html>
